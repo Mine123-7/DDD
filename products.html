@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สินค้า - Jazz Bar KunL</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="products.css">
+</head>
+<body>
+    <!-- Header with Logo -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">🍺🍺</div>
+            <div class="logo-text">
+                <span class="logo-jazz">JEZZ BAR</span>
+                <span class="logo-kunl">KUNL</span>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <nav class="navigation">
+            <a href="index.html" class="nav-link">หน้าแรก</a>
+            <a href="products.html" class="nav-link active">เมนู</a>
+            <a href="contact.html" class="nav-link">ติดต่อ</a>
+            <button class="stats-btn" onclick="showStatistics()">📊 สถิติ</button>
+        </nav>
+
+        <!-- Shopping Cart Icon -->
+        <div class="cart-icon" onclick="toggleCart()">
+            🛒 <span class="cart-count" id="cartCount">0</span>
+        </div>
+    </header>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>ตะกร้าสินค้า 🛒</h3>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+        
+        <!-- Cart Tabs -->
+        <div class="cart-tabs">
+            <button class="cart-tab active" data-tab="cart">ตะกร้า</button>
+            <button class="cart-tab" data-tab="checkout">ชำระเงิน</button>
+        </div>
+        
+        <!-- Cart Items Tab -->
+        <div class="cart-tab-content active" id="cartTab">
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be populated here -->
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>รวมทั้งหมด:</span>
+                    <span class="total-amount" id="cartTotal">฿0</span>
+                </div>
+                <button class="checkout-btn" onclick="showCheckoutTab()">ไปชำระเงิน</button>
+                <button class="clear-cart-btn" onclick="clearCart()">ล้างตะกร้า</button>
+            </div>
+        </div>
+        
+        <!-- Checkout Tab -->
+        <div class="cart-tab-content" id="checkoutTab">
+            <div class="checkout-form">
+                <h4>ข้อมูลการจัดส่ง</h4>
+                
+                <div class="form-group">
+                    <label for="customerName">ชื่อ-นามสกุล *</label>
+                    <input type="text" id="customerName" placeholder="กรุณากรอกชื่อ-นามสกุล" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerPhone">เบอร์โทรศัพท์ *</label>
+                    <input type="tel" id="customerPhone" placeholder="กรุณากรอกเบอร์โทรศัพท์" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerEmail">อีเมล</label>
+                    <input type="email" id="customerEmail" placeholder="กรุณากรอกอีเมล (ไม่บังคับ)">
+                </div>
+                
+                <div class="form-group">
+                    <label for="deliveryAddress">ที่อยู่จัดส่ง *</label>
+                    <textarea id="deliveryAddress" rows="3" placeholder="กรุณากรอกที่อยู่จัดส่ง" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="deliveryNote">หมายเหตุ</label>
+                    <textarea id="deliveryNote" rows="2" placeholder="หมายเหตุเพิ่มเติม (ไม่บังคับ)"></textarea>
+                </div>
+                
+                <h4>วิธีการชำระเงิน</h4>
+                
+                <div class="payment-methods">
+                    <div class="payment-method">
+                        <input type="radio" id="paymentCash" name="paymentMethod" value="cash" checked>
+                        <label for="paymentCash">
+                            <span class="payment-icon">💵</span>
+                            เงินสด (เก็บเงินปลายทาง)
+                        </label>
+                    </div>
+                    
+                    <div class="payment-method">
+                        <input type="radio" id="paymentTransfer" name="paymentMethod" value="transfer">
+                        <label for="paymentTransfer">
+                            <span class="payment-icon">🏦</span>
+                            โอนเงินผ่านธนาคาร
+                        </label>
+                    </div>
+                    
+                    <div class="payment-method">
+                        <input type="radio" id="paymentPromptPay" name="paymentMethod" value="promptpay">
+                        <label for="paymentPromptPay">
+                            <span class="payment-icon">📱</span>
+                            PromptPay
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="checkout-summary">
+                    <div class="summary-row">
+                        <span>ราคาสินค้า:</span>
+                        <span id="summarySubtotal">฿0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>ค่าจัดส่ง:</span>
+                        <span id="summaryShipping">฿50</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>รวมทั้งหมด:</span>
+                        <span id="summaryTotal">฿0</span>
+                    </div>
+                </div>
+                
+                <div class="checkout-actions">
+                    <button class="back-to-cart-btn" onclick="showCartTab()">กลับไปตะกร้า</button>
+                    <button class="place-order-btn" onclick="placeOrder()">สั่งซื้อเลย</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">เมนูเครื่องดื่มและอาหาร</h1>
+                <p class="hero-subtitle">เครื่องดื่มซิกเนเจอร์และอาหารเลิศรส ที่คิดมาเพื่อสายชิลโดยเฉพาะ ✨</p>
+                <div class="hero-decoration">
+                    <span class="decoration-line"></span>
+                    <span class="decoration-icon">🎵</span>
+                    <span class="decoration-line"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu Categories -->
+        <div class="menu-container">
+            <!-- เครื่องดื่มแอลกอฮอล์ -->
+            <section class="menu-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="section-icon">🍺</span>
+                        เครื่องดื่มแอลกอฮอล์
+                    </h2>
+                    <p class="section-description">ค็อกเทลและเครื่องดื่มแอลกอฮอล์คุณภาพพรีเมียม</p>
+                </div>
+                
+                <div class="product-grid">
+                    <article class="product-card" data-id="jazz-martini" data-name="Jazz Martini" data-price="180" data-image="images/m.1.jpg" data-ingredients="Gin, Dry Vermouth, Lemon Twist" data-calories="210" data-size="120ml" data-allergens="None" data-preptime="2 min" data-rating="4.8" data-sku="JZ-MRT-001">
+                        <div class="product-image">
+                            <img src="images/m.1.jpg" alt="Jazz Martini - มาร์ตินีคลาสสิก พร้อมมะกอกและเลมอน" class="product-img">
+                            <div class="product-badge">Signature</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Jazz Martini</h3>
+                            <p class="product-description">มาร์ตินีคลาสสิก พร้อมมะกอกและเลมอน</p>
+                            <div class="product-price">฿180</div>
+                            <div class="order-count">
+                                <span class="order-count-icon">🔥</span>
+                                <span class="order-count-text">สั่งซื้อแล้ว 15 ครั้ง</span>
+                            </div>
+                            
+                            <div class="product-tags">
+                                <span class="tag signature">Signature</span>
+                                <span class="tag category">Classic</span>
+                            </div>
+                            <div class="product-actions">
+                                <div class="quantity-controls">
+                                    <button class="qty-btn minus" onclick="updateQuantity('jazz-martini', -1)">-</button>
+                                    <span class="quantity" id="jazz-martini-qty">0</span>
+                                    <button class="qty-btn plus" onclick="updateQuantity('jazz-martini', 1)">+</button>
+                                </div>
+                                <button class="add-to-cart-btn" onclick="addToCart('jazz-martini', 'Jazz Martini', 180, 'images/m.1.jpg')">
+                                    เพิ่มลงตะกร้า
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-id="saxophone-sour" data-name="Saxophone Sour" data-price="160" data-image="images/m2.jpg" data-ingredients="Whiskey, Lemon, Sugar" data-calories="190" data-size="140ml" data-allergens="None" data-preptime="3 min" data-rating="4.6" data-sku="SX-SOR-002">
+                        <div class="product-image">
+                            <img src="images/m2.jpg" alt="Saxophone Sour - ค็อกเทลเปรี้ยวหวาน กับวิสกี้และเลมอน" class="product-img">
+                            <div class="product-badge">Popular</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Saxophone Sour</h3>
+                            <p class="product-description">ค็อกเทลเปรี้ยวหวาน กับวิสกี้และเลมอน</p>
+                            <div class="product-price">฿160</div>
+                            <div class="order-count">
+                                <span class="order-count-icon">🔥</span>
+                                <span class="order-count-text">สั่งซื้อแล้ว 12 ครั้ง</span>
+                            </div>
+                            
+                            <div class="product-tags">
+                                <span class="tag signature">Signature</span>
+                                <span class="tag category">Sour</span>
+                            </div>
+                            <div class="product-actions">
+                                <div class="quantity-controls">
+                                    <button class="qty-btn minus" onclick="updateQuantity('saxophone-sour', -1)">-</button>
+                                    <span class="quantity" id="saxophone-sour-qty">0</span>
+                                    <button class="qty-btn plus" onclick="updateQuantity('saxophone-sour', 1)">+</button>
+                                </div>
+                                <button class="add-to-cart-btn" onclick="addToCart('saxophone-sour', 'Saxophone Sour', 160, 'images/m2.jpg')">
+                                    เพิ่มลงตะกร้า
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-id="blues-beer" data-name="Blues Beer" data-price="120" data-image="images/m3.jpg" data-ingredients="Water, Malt, Hops, Yeast" data-calories="150" data-size="330ml" data-allergens="Gluten" data-preptime="0 min" data-rating="4.4" data-sku="BL-BER-003">
+                        <div class="product-image">
+                            <img src="images/m3.jpg" alt="Blues Beer - เบียร์คราฟต์ท้องถิ่น รสชาติเข้มข้น" class="product-img">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Blues Beer</h3>
+                            <p class="product-description">เบียร์คราฟต์ท้องถิ่น รสชาติเข้มข้น</p>
+                            <div class="product-price">฿120</div>
+                            <div class="order-count">
+                                <span class="order-count-icon">🔥</span>
+                                <span class="order-count-text">สั่งซื้อแล้ว 8 ครั้ง</span>
+                            </div>
+                           
+                            <div class="product-tags">
+                                <span class="tag category">Local</span>
+                                <span class="tag category">Craft</span>
+                            </div>
+                            <div class="product-actions">
+                                <div class="quantity-controls">
+                                    <button class="qty-btn minus" onclick="updateQuantity('blues-beer', -1)">-</button>
+                                    <span class="quantity" id="blues-beer-qty">0</span>
+                                    <button class="qty-btn plus" onclick="updateQuantity('blues-beer', 1)">+</button>
+                                </div>
+                                <button class="add-to-cart-btn" onclick="addToCart('blues-beer', 'Blues Beer', 120, 'images/m3.jpg')">
+                                    เพิ่มลงตะกร้า
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-id="jazz-wine" data-name="Jazz Wine" data-price="220" data-image="images/m4.jpg" data-ingredients="Red Grapes" data-calories="125" data-size="150ml" data-allergens="Sulfites" data-preptime="0 min" data-rating="4.7" data-sku="JZ-WIN-004">
+                        <div class="product-image">
+                            <img src="images/m4.jpg" alt="Jazz Wine - ไวน์แดงคุณภาพพรีเมียม" class="product-img">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Jazz Wine</h3>
+                            <p class="product-description">ไวน์แดงคุณภาพพรีเมียม</p>
+                            <div class="product-price">฿220</div>
+                            <div class="order-count">
+                                <span class="order-count-icon">🔥</span>
+                                <span class="order-count-text">สั่งซื้อแล้ว 20 ครั้ง</span>
+                            </div>
+                            
+                            <div class="product-tags">
+                                <span class="tag premium">Premium</span>
+                                <span class="tag category">Wine</span>
+                            </div>
+                            <div class="product-actions">
+                                <div class="quantity-controls">
+                                    <button class="qty-btn minus" onclick="updateQuantity('jazz-wine', -1)">-</button>
+                                    <span class="quantity" id="jazz-wine-qty">0</span>
+                                    <button class="qty-btn plus" onclick="updateQuantity('jazz-wine', 1)">+</button>
+                                </div>
+                                <button class="add-to-cart-btn" onclick="addToCart('jazz-wine', 'Jazz Wine', 220, 'images/m4.jpg')">
+                                    เพิ่มลงตะกร้า
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- เครื่องดื่มไม่มีแอลกอฮอล์ -->
+            <section class="menu-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="section-icon">🥤</span>
+                        เครื่องดื่มไม่มีแอลกอฮอล์
+                    </h2>
+                    <p class="section-description">เครื่องดื่มสดชื่นและดีต่อสุขภาพ</p>
+                </div>
+                
+                <div class="product-grid">
+                    <article class="product-card" data-id="jazz-coffee" data-name="Jazz Coffee" data-price="80" data-image="images/D1.jpg" data-ingredients="Espresso, Water" data-calories="5" data-size="200ml" data-allergens="None" data-preptime="5 min" data-rating="4.5" data-sku="JZ-CFF-005">
+                        <div class="product-image">
+                            <img src="images/D1.jpg" alt="Jazz Coffee - กาแฟดำเข้มข้น พร้อมเสียงแจ๊ส" class="product-img">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Jazz Coffee</h3>
+                            <p class="product-description">กาแฟดำเข้มข้น พร้อมเสียงแจ๊ส</p>
+                            <div class="product-price">฿80</div>
+                            <div class="order-count">
+                                <span class="order-count-icon">🔥</span>
+                                <span class="order-count-text">สั่งซื้อแล้ว 25 ครั้ง</span>
+                            </div>
+                            
+                            <div class="product-tags">
+                                <span class="tag category">Hot</span>
+                                <span class="tag category">Coffee</span>
+                            </div>
+                            <div class="product-actions">
+                                <div class="quantity-controls">
+                                    <button class="qty-btn minus" onclick="updateQuantity('jazz-coffee', -1)">-</button>
+                                    <span class="quantity" id="jazz-coffee-qty">0</span>
+                                    <button class="qty-btn plus" onclick="updateQuantity('jazz-coffee', 1)">+</button>
+                                </div>
+                                <button class="add-to-cart-btn" onclick="addToCart('jazz-coffee', 'Jazz Coffee', 80, 'images/D1.jpg')">
+                                    เพิ่มลงตะกร้า
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-id="blues-smoothie" data-name="Blues Smoothie" data-price="90" data-image="images/D2.jpg" data-ingredients="Blueberry, Yogurt, Honey" data-calories="220" data-size="300ml" data-allergens="Dairy" data-preptime="4 min" data-rating="4.6" data-sku="BL-SMO-006">
+                        <div class="product-image">
+                            <img src="images/D2.jpg" alt="Blues Smoothie - สมูทตี้บลูเบอร์รี่ กับโยเกิร์ต" class="product-img">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Blues Smoothie</h3>
+                            <p class="product-description">สมูทตี้บลูเบอร์รี่ กับโยเกิร์ต</p>
+                            <div class="product-price">฿90</div>
+                            <div class="order-count">
+                                <span class="order-count-icon">🔥</span>
+                                <span class="order-count-text">สั่งซื้อแล้ว 18 ครั้ง</span>
+                            </div>
+
+                            <div class="product-tags">
+                                <span class="tag category">Cold</span>
+                                <span class="tag category">Healthy</span>
+                            </div>
+                            <div class="product-actions">
+                                <div class="quantity-controls">
+                                    <button class="qty-btn minus" onclick="updateQuantity('blues-smoothie', -1)">-</button>
+                                    <span class="quantity" id="blues-smoothie-qty">0</span>
+                                    <button class="qty-btn plus" onclick="updateQuantity('blues-smoothie', 1)">+</button>
+                                </div>
+                                <button class="add-to-cart-btn" onclick="addToCart('blues-smoothie', 'Blues Smoothie', 90, 'images/D2.jpg')">
+                                    เพิ่มลงตะกร้า
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-id="jazz-tea" data-name="Jazz Tea" data-price="70" data-image="images/D3.jpg" data-ingredients="Green Tea, Honey" data-calories="30" data-size="250ml" data-allergens="None" data-preptime="3 min" data-rating="4.3" data-sku="JZ-TEA-007">
+                        <div class="product-image">
+                            <img src="images/D3.jpg" alt="Jazz Tea - ชาเขียวญี่ปุ่น พร้อมน้ำผึ้ง" class="product-img">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Jazz Tea</h3>
+                            <p class="product-description">ชาเขียวญี่ปุ่น พร้อมน้ำผึ้ง</p>
+                            <div class="product-price">฿70</div>
+                            <div class="order-count">
+                                <span class="order-count-icon">🔥</span>
+                                <span class="order-count-text">สั่งซื้อแล้ว 22 ครั้ง</span>
+                            </div>
+                            
+                            <div class="product-tags">
+                                <span class="tag category">Hot</span>
+                                <span class="tag category">Tea</span>
+                            </div>
+                            <div class="product-actions">
+                                <div class="quantity-controls">
+                                    <button class="qty-btn minus" onclick="updateQuantity('jazz-tea', -1)">-</button>
+                                    <span class="quantity" id="jazz-tea-qty">0</span>
+                                    <button class="qty-btn plus" onclick="updateQuantity('jazz-tea', 1)">+</button>
+                                </div>
+                                <button class="add-to-cart-btn" onclick="addToCart('jazz-tea', 'Jazz Tea', 70, 'images/D3.jpg')">
+                                    เพิ่มลงตะกร้า
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-id="lemon-jazz" data-name="Lemon Jazz" data-price="60" data-image="images/D4.jpg" data-ingredients="Lemon, Soda, Mint" data-calories="45" data-size="250ml" data-allergens="None" data-preptime="2 min" data-rating="4.2" data-sku="LM-JAZ-008">
+                        <div class="product-image">
+                            <img src="images/D4.jpg" alt="Lemon Jazz - น้ำมะนาวโซดา กับมินต์" class="product-img">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Lemon Jazz</h3>
+                            <p class="product-description">น้ำมะนาวโซดา กับมินต์</p>
+                            <div class="product-price">฿60</div>
+                            <div class="order-count">
+                                <span class="order-count-icon">🔥</span>
+                                <span class="order-count-text">สั่งซื้อแล้ว 16 ครั้ง</span>
+                            </div>
+                            
+                            <div class="product-tags">
+                                <span class="tag category">Cold</span>
+                                <span class="tag category">Refreshing</span>
+                            </div>
+                            <div class="product-actions">
+                                <div class="quantity-controls">
+                                    <button class="qty-btn minus" onclick="updateQuantity('lemon-jazz', -1)">-</button>
+                                    <span class="quantity" id="lemon-jazz-qty">0</span>
+                                    <button class="qty-btn plus" onclick="updateQuantity('lemon-jazz', 1)">+</button>
+                                </div>
+                                <button class="add-to-cart-btn" onclick="addToCart('lemon-jazz', 'Lemon Jazz', 60, 'images/D4.jpg')">
+                                    เพิ่มลงตะกร้า
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- อาหาร -->
+            <section class="menu-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="section-icon">🍽️</span>
+                        อาหาร
+                    </h2>
+                    <p class="section-description">อาหารเลิศรสที่คัดสรรมาเพื่อคุณ</p>
+                </div>
+                
+                <div class="product-grid">
+                    <article class="product-card" data-id="jazz-burger" data-name="Jazz Burger" data-price="180" data-image="images/f1.jpg" data-ingredients="Beef Patty, Cheese, Lettuce, Bun" data-calories="680" data-size="Single" data-allergens="Gluten, Dairy" data-preptime="12 min" data-rating="4.7" data-sku="JZ-BUR-009">
+                        <div class="product-image">
+                            <img src="images/f1.jpg" alt="Jazz Burger - เบอร์เกอร์เนื้อวัว พร้อมชีสและผักสด" class="product-img">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Jazz Burger</h3>
+                            <p class="product-description">เบอร์เกอร์เนื้อวัว พร้อมชีสและผักสด</p>
+                            <div class="product-price">฿180</div>
+                            <div class="order-count">
+                                <span class="order-count-icon">🔥</span>
+                                <span class="order-count-text">สั่งซื้อแล้ว 14 ครั้ง</span>
+                            </div>
+                           
+                            <div class="product-tags">
+                                <span class="tag category">Main</span>
+                                <span class="tag category">Beef</span>
+                            </div>
+                            <div class="product-actions">
+                                <div class="quantity-controls">
+                                    <button class="qty-btn minus" onclick="updateQuantity('jazz-burger', -1)">-</button>
+                                    <span class="quantity" id="jazz-burger-qty">0</span>
+                                    <button class="qty-btn plus" onclick="updateQuantity('jazz-burger', 1)">+</button>
+                                </div>
+                                <button class="add-to-cart-btn" onclick="addToCart('jazz-burger', 'Jazz Burger', 180, 'images/f1.jpg')">
+                                    เพิ่มลงตะกร้า
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-id="blues-wings" data-name="Blues Wings" data-price="150" data-image="images/f2.jpg" data-ingredients="Chicken Wings, Spicy Sauce" data-calories="520" data-size="6 pcs" data-allergens="Soy" data-preptime="14 min" data-rating="4.6" data-sku="BL-WNG-010">
+                        <div class="product-image">
+                            <img src="images/f2.jpg" alt="Blues Wings - ปีกไก่ทอด พร้อมซอสพิเศษ" class="product-img">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Blues Wings</h3>
+                            <p class="product-description">ปีกไก่ทอด พร้อมซอสพิเศษ</p>
+                            <div class="product-price">฿150</div>
+                            <div class="order-count">
+                                <span class="order-count-icon">🔥</span>
+                                <span class="order-count-text">สั่งซื้อแล้ว 19 ครั้ง</span>
+                            </div>
+                            
+                            <div class="product-tags">
+                                <span class="tag category">Appetizer</span>
+                                <span class="tag category">Spicy</span>
+                            </div>
+                            <div class="product-actions">
+                                <div class="quantity-controls">
+                                    <button class="qty-btn minus" onclick="updateQuantity('blues-wings', -1)">-</button>
+                                    <span class="quantity" id="blues-wings-qty">0</span>
+                                    <button class="qty-btn plus" onclick="updateQuantity('blues-wings', 1)">+</button>
+                                </div>
+                                <button class="add-to-cart-btn" onclick="addToCart('blues-wings', 'Blues Wings', 150, 'images/f2.jpg')">
+                                    เพิ่มลงตะกร้า
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-id="jazz-pasta" data-name="Jazz Pasta" data-price="160" data-image="images/f3.jpg" data-ingredients="Pasta, Bacon, Cream Sauce" data-calories="560" data-size="250g" data-allergens="Gluten, Dairy" data-preptime="10 min" data-rating="4.5" data-sku="JZ-PAS-011">
+                        <div class="product-image">
+                            <img src="images/f3.jpg" alt="Jazz Pasta - พาสต้าคาร์โบนารา กับเบคอน" class="product-img">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Jazz Pasta</h3>
+                            <p class="product-description">พาสต้าคาร์โบนารา กับเบคอน</p>
+                            <div class="product-price">฿160</div>
+                            <div class="order-count">
+                                <span class="order-count-icon">🔥</span>
+                                <span class="order-count-text">สั่งซื้อแล้ว 17 ครั้ง</span>
+                            </div>
+                          
+                            <div class="product-tags">
+                                <span class="tag category">Main</span>
+                                <span class="tag category">Pasta</span>
+                            </div>
+                            <div class="product-actions">
+                                <div class="quantity-controls">
+                                    <button class="qty-btn minus" onclick="updateQuantity('jazz-pasta', -1)">-</button>
+                                    <span class="quantity" id="jazz-pasta-qty">0</span>
+                                    <button class="qty-btn plus" onclick="updateQuantity('jazz-pasta', 1)">+</button>
+                                </div>
+                                <button class="add-to-cart-btn" onclick="addToCart('jazz-pasta', 'Jazz Pasta', 160, 'images/f3.jpg')">
+                                    เพิ่มลงตะกร้า
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-id="sweet-jazz" data-name="Sweet Jazz" data-price="120" data-image="images/f4.png" data-ingredients="Chocolate Cake, Ice Cream" data-calories="420" data-size="1 slice" data-allergens="Eggs, Dairy, Gluten" data-preptime="0 min" data-rating="4.8" data-sku="SW-JAZ-012">
+                        <div class="product-image">
+                            <img src="images/f4.png" alt="Sweet Jazz - ช็อกโกแลตเค้ก พร้อมไอศกรีม" class="product-img">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Sweet Jazz</h3>
+                            <p class="product-description">ช็อกโกแลตเค้ก พร้อมไอศกรีม</p>
+                            <div class="product-price">฿120</div>
+                            <div class="order-count">
+                                <span class="order-count-icon">🔥</span>
+                                <span class="order-count-text">สั่งซื้อแล้ว 21 ครั้ง</span>
+                            </div>
+                            
+                            
+                            <div class="product-tags">
+                                <span class="tag category">Dessert</span>
+                                <span class="tag category">Sweet</span>
+                            </div>
+                            <div class="product-actions">
+                                <div class="quantity-controls">
+                                    <button class="qty-btn minus" onclick="updateQuantity('sweet-jazz', -1)">-</button>
+                                    <span class="quantity" id="sweet-jazz-qty">0</span>
+                                    <button class="qty-btn plus" onclick="updateQuantity('sweet-jazz', 1)">+</button>
+                                </div>
+                                <button class="add-to-cart-btn" onclick="addToCart('sweet-jazz', 'Sweet Jazz', 120, 'images/f4.png')">
+                                    เพิ่มลงตะกร้า
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+
+        <!-- Information Section -->
+        <section class="info-section">
+            <div class="info-container">
+                <div class="info-card">
+                    <div class="info-icon">🕐</div>
+                    <h3 class="info-title">เวลาเปิด-ปิด</h3>
+                    <div class="info-content">
+                        <p><strong>จันทร์ - ศุกร์:</strong> 18:00 - 02:00</p>
+                        <p><strong>เสาร์ - อาทิตย์:</strong> 17:00 - 03:00</p>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">📞</div>
+                    <h3 class="info-title">จองโต๊ะ</h3>
+                    <div class="info-content">
+                        <p><strong>โทร:</strong> 02-123-4567</p>
+                        <p><strong>LINE:</strong> @jazzbarkunl</p>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">🎵</div>
+                    <h3 class="info-title">Live Music</h3>
+                    <div class="info-content">
+                        <p><strong>แจ๊สสด:</strong> ทุกวัน 20:00 - 24:00</p>
+                        <p><strong>Happy Hour:</strong> 18:00 - 20:00</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <div class="footer-bottom">
+        <p>&copy; 2024 Jazz Bar Café. สงวนลิขสิทธิ์.</p>
+        <p>โทร: 02-123-4567 | อีเมล: info@jazzbarcafe.com</p>
+    </div>
+    <!-- Order Success Modal -->
+    <div class="order-success-modal" id="orderSuccessModal">
+        <div class="order-success-content">
+            <div class="order-success-icon">🎉</div>
+            <h2 class="order-success-title">สั่งซื้อสำเร็จ!</h2>
+            <p class="order-success-message">
+                ขอบคุณสำหรับการสั่งซื้อสินค้า เราจะจัดส่งสินค้าให้คุณโดยเร็วที่สุด
+            </p>
+            <div class="order-number" id="orderNumber">
+                เลขที่คำสั่งซื้อ: <span id="orderNumberText">JZ-2024-001</span>
+            </div>
+            <div class="order-success-actions">
+                <button class="order-success-btn continue-shopping-btn" onclick="closeOrderSuccessModal()">
+                    เลือกสินค้าต่อ
+                </button>
+                <button class="order-success-btn view-order-btn" onclick="openOrderDetailsModal()">
+                    ดูรายละเอียด
+                </button>
+            </div>
+        </div>
+    </div>
+
+<style>
+/* Order Details Modal Overlay */
+.order-details-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+}
+.order-details-modal[style*="display: block"] {
+  display: flex !important;
+}
+.order-details-modal-content {
+  background: #222;
+  color: #fff;
+  margin: auto;
+  border-radius: 18px;
+  max-width: 600px;
+  width: 95vw;
+  padding: 32px 24px 24px 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  position: relative;
+  animation: fadeInModal 0.2s;
+}
+@keyframes fadeInModal {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.order-details-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+  z-index: 2;
+}
+.order-details-header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+.order-details-icon {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+}
+.order-details-title {
+  font-size: 1.5rem;
+  margin: 0 0 8px 0;
+}
+.order-details-summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 18px;
+  margin-bottom: 18px;
+}
+.order-details-summary-item.wide {
+  grid-column: 1 / span 2;
+}
+.order-details-label {
+  color: #ffd86b;
+  font-weight: 500;
+}
+.order-details-value {
+  margin-left: 6px;
+}
+.order-details-value.highlight {
+  color: #00ffae;
+  font-weight: bold;
+}
+.order-details-table-wrapper {
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+.order-details-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #181818;
+  color: #fff;
+}
+.order-details-table th, .order-details-table td {
+  border: 1px solid #333;
+  padding: 8px 6px;
+  text-align: center;
+}
+.order-details-table th {
+  background: #333;
+  color: #ffd86b;
+}
+.order-details-total-box {
+  margin: 12px 0 18px 0;
+  background: #181818;
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+.order-details-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.order-details-row.total {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #00ffae;
+}
+.order-details-actions {
+  text-align: center;
+}
+.order-details-btn {
+  background: #00ffae;
+  color: #222;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 28px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s;
+}
+.order-details-btn:hover {
+  background: #ffd86b;
+  color: #222;
+}
+</style>
+
+    <!-- Order Details Modal -->
+    <div class="order-details-modal" id="orderDetailsModal" style="display:none;">
+        <div class="order-details-modal-content">
+            <span class="order-details-modal-close" onclick="closeOrderDetailsModal()">&times;</span>
+            <div class="order-details-header">
+                <div class="order-details-icon">🎉</div>
+                <h1 class="order-details-title">สรุปรายละเอียดคำสั่งซื้อ</h1>
+            </div>
+            <div class="order-details-summary-grid">
+                <div class="order-details-summary-item">
+                    <span class="order-details-label">เลขที่คำสั่งซื้อ</span>
+                    <span class="order-details-value highlight" id="modalOrderNumberText">JZ-2024-001</span>
+                </div>
+                <div class="order-details-summary-item">
+                    <span class="order-details-label">วันที่สั่งซื้อ</span>
+                    <span class="order-details-value" id="modalOrderDateText">-</span>
+                </div>
+                <div class="order-details-summary-item">
+                    <span class="order-details-label">ชื่อผู้รับ</span>
+                    <span class="order-details-value" id="modalCustomerNameText">-</span>
+                </div>
+                <div class="order-details-summary-item">
+                    <span class="order-details-label">เบอร์โทรศัพท์</span>
+                    <span class="order-details-value" id="modalCustomerPhoneText">-</span>
+                </div>
+                <div class="order-details-summary-item wide">
+                    <span class="order-details-label">ที่อยู่จัดส่ง</span>
+                    <span class="order-details-value" id="modalDeliveryAddressText">-</span>
+                </div>
+                <div class="order-details-summary-item">
+                    <span class="order-details-label">วิธีชำระเงิน</span>
+                    <span class="order-details-value" id="modalPaymentMethodText">-</span>
+                </div>
+            </div>
+            <h2 class="order-details-subtitle">🛒 รายการสินค้า</h2>
+            <div class="order-details-table-wrapper">
+                <table class="order-details-table">
+                    <thead>
+                        <tr>
+                            <th>สินค้า</th>
+                            <th>จำนวน</th>
+                            <th>ราคาต่อหน่วย</th>
+                            <th>ราคารวม</th>
+                        </tr>
+                    </thead>
+                    <tbody id="modalOrderItemsTable">
+                        <!-- Order items will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="order-details-total-box">
+                <div class="order-details-row">
+                    <span class="order-details-label">ราคาสินค้ารวม</span>
+                    <span class="order-details-value" id="modalOrderSubtotal">฿0</span>
+                </div>
+                <div class="order-details-row">
+                    <span class="order-details-label">ค่าจัดส่ง</span>
+                    <span class="order-details-value" id="modalOrderShipping">฿50</span>
+                </div>
+                <div class="order-details-row total">
+                    <span class="order-details-label">รวมทั้งหมด</span>
+                    <span class="order-details-value highlight" id="modalOrderTotal">฿0</span>
+                </div>
+            </div>
+            <div class="order-details-actions">
+                <button class="order-details-btn" onclick="closeOrderDetailsModal()">ปิดหน้าต่าง</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Modal (injected by products.js) -->
+    <div class="stats-modal" id="statsModal">
+        <div class="stats-content" id="statsContent">
+            <div class="stats-header">
+                <h2>สถิติการสั่งซื้อ</h2>
+                <button class="close-stats" onclick="closeStatistics()">×</button>
+            </div>
+            <div id="statsContainer">
+                <!-- Stats will be populated here by JS -->
+            </div>
+            <div class="stats-actions">
+                <button class="reset-stats-btn" onclick="resetStatistics()">รีเซ็ตสถิติ</button>
+                <button class="export-stats-btn" onclick="exportStatistics()">ส่งออก (JSON)</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="products.js"></script>
+</body>
+</html>

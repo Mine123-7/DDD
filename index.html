@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jazz Bar KunL - บาร์แจ๊สสุดอบอุ่น</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header with Logo -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">🍺🍺</div>
+            <div class="logo-text">
+                <span class="logo-jazz">Jazz Bar</span>
+                <span class="logo-kunl">KunL</span>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <nav class="navigation">
+            <a href="index.html" class="nav-link active">หน้าแรก</a>
+            <a href="products.html" class="nav-link">เมนู</a>
+            <a href="contact.html" class="nav-link">ติดต่อ</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="left-column">
+            <!-- หน้าแรก Section -->
+            <div class="content-card">
+                <h2 class="card-title">หน้าแรก</h2>
+                <p class="card-content">
+                    Jazz Bar KunL — บาร์แจ๊สสุดอบอุ่นใจกลางเมือง เสียงดนตรีแจ๊ส สดทุกค่ำคืน ✨🎷❤️
+                </p>
+            </div>
+
+            <!-- เนื้อหา Section -->
+            <div class="content-card">
+                <h2 class="card-title">เนื้อหา</h2>
+                <p class="card-content">
+                    Jazz Bar KunL — บาร์แจ๊สสุดอบอุ่นใจกลางเมือง เสียงดนตรีแจ๊สสดทุกค่ำคืน พร้อมเครื่องดื่มซิกเนเจอร์ ที่คิดมาเพื่อสายชิลโดยเฉพาะ เหมาะสำหรับค่ำคืนที่อยากพักใจแบบมีสไตล์ ✨🎷❤️
+                </p>
+            </div>
+
+            <!-- บทความ Section -->
+            <div class="content-card">
+                <h2 class="card-title">บทความ</h2>
+                <p class="card-content">
+                    ปล่อยใจให้ลอยไปกับเสียงดนตรี 🎵🎷
+                </p>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <!-- โฆษณา Interactive Section -->
+            <div class="content-card">
+                <h2 class="card-title">โฆษณา</h2>
+                
+                <!-- Image Carousel -->
+                <div class="ad-carousel">
+                    <div class="ad-slide active" data-slide="1">
+                        <div class="ad-image">
+                            <div class="ad-image-content">
+                                <img src="images/s1.jpg" alt="Jazz Bar KunL" style="width:100%; border-radius:12px; margin-bottom:10px;">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ad-slide" data-slide="2">
+                        <div class="ad-image">
+                            <div class="ad-image-content">
+                                <img src="images/s2.jpg" alt="Cocktail Signature" style="width:100%; border-radius:12px; margin-bottom:10px;">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ad-slide" data-slide="3">
+                        <div class="ad-image">
+                            <div class="ad-image-content">
+                                <img src="images/s3.jpg" alt="Live Music" style="width:100%; border-radius:12px; margin-bottom:10px;">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Video Slide -->
+                    <div class="ad-slide" data-slide="4">
+                        <div class="ad-video">
+                            <video id="jazz-video" controls autoplay poster="images/video-poster.jpg">
+                                <source src="videos/v1.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-overlay">
+                                <div class="play-button">▶️</div>
+                                <div class="video-text">ชมบรรยากาศ Jazz Bar</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navigation Dots -->
+                <div class="carousel-dots">
+                    <span class="dot active" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                    <span class="dot" data-slide="3"></span>
+                    <span class="dot" data-slide="4">🎥</span>
+                </div>
+                
+                <!-- Navigation Arrows -->
+                <button class="carousel-arrow prev" onclick="changeSlide(1)">❮</button>
+                <button class="carousel-arrow next" onclick="changeSlide(1)">❯</button>
+                
+                <!-- ข้อความโฆษณา -->
+                <p class="card-content">
+                    เสียงแจ๊ส เครื่องดื่มสุดฟิน บรรยากาศละมุน ที่คุณต้องมาสัมผัสด้วยตัวเอง
+                </p>
+                <p class="card-content quote">
+                    "Jazz Bar KunL เสียงแจ๊ส เครื่องดื่มสุดฟิน บรรยากาศละมุน ที่คุณต้องมาสัมผัสด้วยตัวเอง"
+                </p>
+                <p class="card-content">
+                    จองที่นั่งผ่าน LINE OA ได้เลย ✨🎵❤️❤️
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Jazz Bar Café. สงวนลิขสิทธิ์.</p>
+        <p>โทร: 02-123-4567 | อีเมล: info@jazzbarcafe.com</p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สินค้า - Jazz Bar KunL</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="contact.css">
+</head>
+<body>
+    <!-- Header with Logo -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">🍺🍺</div>
+            <div class="logo-text">
+                <span class="logo-jazz">JEZZ BAR</span>
+                <span class="logo-kunl">KUNL</span>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <nav class="navigation">
+            <a href="index.html" class="nav-link">หน้าแรก</a>
+            <a href="products.html" class="nav-link">เมนู</a>
+            <a href="contact.html" class="nav-link active">ติดต่อ</a>
+        </nav>
+</header>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">ติดต่อ สอบถาม</h1>
+                <p class="hero-subtitle">เรายินดีให้บริการและตอบคำถามทุกข้อสงสัย ❤️✨</p>
+                <div class="hero-decoration">
+                    <span class="decoration-line"></span>
+                    <span class="decoration-icon">🎵</span>
+                    <span class="decoration-line"></span>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Contact Grid: Form & Map Side by Side -->
+
+        <!-- Contact & Reserve: 2 columns -->
+        <section>
+          <div class="contact-reserve-row">
+            <!-- Contact Form Card -->
+            <div class="contact-form-card">
+              <div class="card-header">
+                <i class="fas fa-envelope-open-text card-icon"></i>
+                <h2 class="card-title">ส่งข้อความถึงเรา</h2>
+              </div>
+              <form class="contact-form" id="contactForm" action="send_contact.php" method="post" novalidate>
+                <div class="form-group">
+                  <label for="name">ชื่อ-นามสกุล *</label>
+                  <input type="text" id="name" name="name" required placeholder="กรอกชื่อของคุณ">
+                </div>
+                <div class="form-group">
+                  <label for="email">อีเมล *</label>
+                  <input type="email" id="email" name="email" required placeholder="กรอกอีเมลของคุณ">
+                </div>
+                <div class="form-group">
+                  <label for="phone">เบอร์โทรศัพท์</label>
+                  <input type="tel" id="phone" name="phone" placeholder="กรอกเบอร์โทรศัพท์">
+                </div>
+                <div class="form-group">
+                  <label for="subject">หัวข้อ *</label>
+                  <select id="subject" name="subject" required>
+                    <option value="">เลือกหัวข้อ</option>
+                    <option value="feedback">ความคิดเห็น</option>
+                    <option value="complaint">ร้องเรียน</option>
+                    <option value="partnership">ความร่วมมือ</option>
+                    <option value="other">อื่นๆ</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="message">ข้อความ *</label>
+                  <textarea id="message" name="message" rows="5" required placeholder="เขียนข้อความของคุณที่นี่..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                  <i class="fas fa-paper-plane"></i>
+                  ส่งข้อความ
+                </button>
+              </form>
+              <div class="form-quote-jazz">
+                <span class="jazz-note">&#119070;</span>
+              </div>
+            </div>
+            <!-- Reserve Card -->
+            <div class="reserve-card">
+              <div class="card-header">
+                <i class="fas fa-chair card-icon"></i>
+                <h2 class="card-title">จองโต๊ะ</h2>
+              </div>
+              <form class="reserve-form" id="reserveForm" action="#" method="post" novalidate>
+                <div class="form-group">
+                  <label for="reserve-name">ชื่อ-นามสกุล *</label>
+                  <input type="text" id="reserve-name" name="reserve-name" required placeholder="กรอกชื่อของคุณ">
+                </div>
+                <div class="form-group">
+                  <label for="reserve-email">อีเมล</label>
+                  <input type="email" id="reserve-email" name="reserve-email" placeholder="กรอกอีเมลของคุณ">
+                </div>
+                <div class="form-group">
+                  <label for="reserve-phone">เบอร์โทรศัพท์ *</label>
+                  <input type="tel" id="reserve-phone" name="reserve-phone" required placeholder="กรอกเบอร์โทรศัพท์">
+                </div>
+                <div class="form-group">
+                  <label for="reserve-date">วันที่</label>
+                  <input type="date" id="reserve-date" name="reserve-date">
+                </div>
+                <div class="form-group">
+                  <label for="reserve-time">เวลา</label>
+                  <input type="time" id="reserve-time" name="reserve-time">
+                </div>
+                <div class="form-group">
+                  <label for="reserve-people">จำนวนคน</label>
+                  <input type="number" id="reserve-people" name="reserve-people" min="1" max="30" placeholder="เช่น 4">
+                </div>
+                <div class="form-group">
+                  <label for="reserve-note">หมายเหตุ/คำขอพิเศษ</label>
+                  <textarea id="reserve-note" name="reserve-note" rows="2" placeholder="ระบุความต้องการเพิ่มเติม (ถ้ามี)"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                  <i class="fas fa-calendar-check"></i>
+                  จองโต๊ะ
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- Contact Info Card (separated column) -->
+            <div class="contact-info-card">
+              <div class="card-header">
+                <i class="fas fa-map-marker-alt card-icon"></i>
+                <h2 class="card-title">ที่อยู่</h2>
+              </div>
+              <div class="contact-info">
+                <p>Jazz Bar Café<br>
+                123/4 ถนนเสียงดนตรี แขวง145 เขตรักข้างเดียว ขอนแก่น 40000</p>
+                <p>เวลาเปิด: จ.-ส. 17:00 - 02:00 น. | อา. 17:00 - 24:00 น.</p>
+                <p><a href="https://www.google.com/maps" target="_blank" rel="noopener">ดูแผนที่บน Google Maps</a></p>
+              </div>
+              <!-- ฝังแผนที่ (map image / iframe) -->
+              <div class="map-embed-wrapper" style="margin-top:18px;">
+                <!-- ใช้ iframe ของ Google Maps โดยชี้ไปยังพิกัดตัวอย่าง (กรุงเทพ) -->
+                <iframe class="google-map-iframe" src="https://maps.google.com/maps?q=13.7563,100.5018&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <p style="margin-top:8px;"><a href="https://www.google.com/maps/search/?api=1&query=13.7563,100.5018" target="_blank" rel="noopener">เปิดแผนที่ขนาดเต็มบน Google Maps</a></p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Social + Newsletter Side by Side -->
+        <div class="footer-duo-row">
+            <section class="footer-duo-col social-section">
+                <div class="social-card">
+                    <h2 class="card-title main-title">ติดตามเรา</h6>
+                    <div class="social-links social-row">
+                        <a href="#" class="social-link social-circle facebook" title="Facebook">
+                            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" class="social-app-icon">
+                        </a>
+                        <a href="#" class="social-link social-circle instagram" title="Instagram">
+                            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" class="social-app-icon">
+                        </a>
+                        <a href="#" class="social-link social-circle line" title="Line">
+                            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/line.svg" alt="Line" class="social-app-icon">
+                        </a>
+                        <a href="#" class="social-link social-circle youtube" title="YouTube">
+                            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" class="social-app-icon">
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <section class="footer-duo-col newsletter-section">
+                <div class="newsletter-card">
+                    <h2 class="card-title main-title">รับข่าวสารและโปรโมชั่น</h2>
+                    <p>สมัครรับข่าวสารเพื่อไม่พลาดโปรโมชั่นพิเศษและกิจกรรมที่น่าสนใจ</p>
+                    <form class="newsletter-form newsletter-inline">
+                        <input type="email" placeholder="ใส่อีเมลของคุณ" required>
+                        <button type="submit">สมัคร</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </footer>
+
+    <div class="footer-bottom">
+        <p>&copy; 2024 Jazz Bar Café. สงวนลิขสิทธิ์.</p>
+        <p>โทร: 02-123-4567 | อีเมล: info@jazzbarcafe.com</p>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h3>ส่งข้อความสำเร็จ!</h3>
+            </div>
+            <p>ขอบคุณที่ติดต่อเรา เราจะตอบกลับโดยเร็วที่สุด</p>
+            <button class="modal-btn" onclick="closeSuccessModal()">ตกลง</button>
+        </div>
+    </div>
+
+    <script src="contact.js"></script>
+    <script>
+// Newsletter submit effect
+const newsletterForm = document.querySelector('.newsletter-form');
+if(newsletterForm){
+  newsletterForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const btn = newsletterForm.querySelector('button');
+    btn.classList.add('active');
+    setTimeout(()=>btn.classList.remove('active'), 400);
+    // Show success modal or toast here if needed
+  });
+}
+// Fade-in main-title on load
+window.addEventListener('DOMContentLoaded', ()=>{
+  document.querySelectorAll('.main-title').forEach(el=>{
+    el.style.opacity = '1';
+  });
+});
+</script>
+</body>
+</html>
